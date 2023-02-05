@@ -19,12 +19,42 @@ Eliud Kipchoge is considered the greatest marathon runner of all time. As with t
     </item>
     
     <item>
-      <title></title>
+      <title>Me</title>
+      <link>https://andresruizc.github.io/blog_prod/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://andresruizc.github.io/blog_prod/about/</guid>
+      <description>This is Andres.</description>
+    </item>
+    
+    <item>
+      <title>Posts Archive</title>
       <link>https://andresruizc.github.io/blog_prod/archive/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://andresruizc.github.io/blog_prod/archive/</guid>
-      <description> </description>
+      <description>2023 04 Feb &amp;ndash; Thinking Negatively</description>
+    </item>
+    
+    <item>
+      <title>Quotes</title>
+      <link>https://andresruizc.github.io/blog_prod/quotes/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://andresruizc.github.io/blog_prod/quotes/</guid>
+      <description>Here&amp;rsquo;s a compilation of some of my favorite quotes.
+&amp;ldquo;Our painful experiences aren&amp;rsquo;t a liability—they&amp;rsquo;re a gift. They give us perspective and meaning, an opportunity to find our unique purpose and our strength.&amp;rdquo; ― Edith Eger,The Choice: Embrace the Possible
+&amp;ldquo;We don&amp;rsquo;t know where we&amp;rsquo;re going, we don&amp;rsquo;t know what&amp;rsquo;s going to happen, but no one can take away from you what you put in your own mind.&amp;rdquo;
+― Edith Eger,The Choice: Embrace the Possible</description>
+    </item>
+    
+    <item>
+      <title>Reading List</title>
+      <link>https://andresruizc.github.io/blog_prod/reading_list/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://andresruizc.github.io/blog_prod/reading_list/</guid>
+      <description>Here&amp;rsquo;s a compilation of some of my favorite books.</description>
     </item>
     
     
