@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Arete Blog</title>
-    <link>https://andresruizc.github.io/blog_prod/</link>
+    <link>https://andresruizc.github.io/andresr/</link>
     <description>Recent content on Arete Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 04 Feb 2023 22:23:18 +0100</lastBuildDate><atom:link href="https://andresruizc.github.io/blog_prod/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 04 Feb 2023 22:23:18 +0100</lastBuildDate><atom:link href="https://andresruizc.github.io/andresr/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Thinking Negatively</title>
-      <link>https://andresruizc.github.io/blog_prod/posts/first/</link>
+      <link>https://andresruizc.github.io/andresr/posts/first/</link>
       <pubDate>Sat, 04 Feb 2023 22:23:18 +0100</pubDate>
       
-      <guid>https://andresruizc.github.io/blog_prod/posts/first/</guid>
+      <guid>https://andresruizc.github.io/andresr/posts/first/</guid>
       <description>&amp;ldquo;Feeling ready to do something does not mean feeling certain that you&amp;rsquo;ll succeed, though of course that&amp;rsquo;s what you are hoping to do. Truly being ready means understanding what could go wrong – and having a plan to deal with it.&amp;rdquo;
 _ Chris Hadfield, An Astronaut&amp;rsquo;s Guide to Life on Earth _
 Eliud Kipchoge is considered the greatest marathon runner of all time. As with the most iconic athletes, the principles and values they embody are far more relevant than their achievements.</description>
@@ -20,28 +20,28 @@ Eliud Kipchoge is considered the greatest marathon runner of all time. As with t
     
     <item>
       <title>Me</title>
-      <link>https://andresruizc.github.io/blog_prod/about/</link>
+      <link>https://andresruizc.github.io/andresr/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://andresruizc.github.io/blog_prod/about/</guid>
+      <guid>https://andresruizc.github.io/andresr/about/</guid>
       <description>This is Andres.</description>
     </item>
     
     <item>
       <title>Posts Archive</title>
-      <link>https://andresruizc.github.io/blog_prod/archive/</link>
+      <link>https://andresruizc.github.io/andresr/archive/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://andresruizc.github.io/blog_prod/archive/</guid>
+      <guid>https://andresruizc.github.io/andresr/archive/</guid>
       <description>2023 04 Feb &amp;ndash; Thinking Negatively</description>
     </item>
     
     <item>
       <title>Quotes</title>
-      <link>https://andresruizc.github.io/blog_prod/quotes/</link>
+      <link>https://andresruizc.github.io/andresr/quotes/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://andresruizc.github.io/blog_prod/quotes/</guid>
+      <guid>https://andresruizc.github.io/andresr/quotes/</guid>
       <description>Here&amp;rsquo;s a compilation of some of my favorite quotes.
 &amp;ldquo;Our painful experiences aren&amp;rsquo;t a liability—they&amp;rsquo;re a gift. They give us perspective and meaning, an opportunity to find our unique purpose and our strength.&amp;rdquo; ― Edith Eger,The Choice: Embrace the Possible
 &amp;ldquo;We don&amp;rsquo;t know where we&amp;rsquo;re going, we don&amp;rsquo;t know what&amp;rsquo;s going to happen, but no one can take away from you what you put in your own mind.&amp;rdquo;
@@ -50,10 +50,10 @@ Eliud Kipchoge is considered the greatest marathon runner of all time. As with t
     
     <item>
       <title>Reading List</title>
-      <link>https://andresruizc.github.io/blog_prod/reading_list/</link>
+      <link>https://andresruizc.github.io/andresr/reading_list/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://andresruizc.github.io/blog_prod/reading_list/</guid>
+      <guid>https://andresruizc.github.io/andresr/reading_list/</guid>
       <description>Here&amp;rsquo;s a compilation of some of my favorite books.</description>
     </item>
     
