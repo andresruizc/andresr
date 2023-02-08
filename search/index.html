@@ -5,12 +5,16 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>Search | Arete Blog</title>
+<title>Search Results | Arete Blog</title>
 <meta name="keywords" content="">
-<meta name="description" content="search">
+<meta name="description" content="This file exists solely to respond to /search URL with the related search layout template.
+No content shown here is rendered, all content is based in the template layouts/page/search.html
+Setting a very low sitemap priority will tell search engines this is not important content.
+This implementation uses Fusejs, jquery and mark.js
+Initial setup Search depends on additional output content type of JSON in config.toml ``` [outputs] home = [&ldquo;HTML&rdquo;, &ldquo;JSON&rdquo;] ```">
 <meta name="author" content="">
 <link rel="canonical" href="https://andresruizc.github.io/andresr/search/">
-<link crossorigin="anonymous" href="/andresr/assets/css/stylesheet.bccfefac377bc340f06c260aed1bddf49a4354816d7c570d6aac75a997986c95.css" integrity="sha256-vM/vrDd7w0DwbCYK7Rvd9JpDVIFtfFcNaqx1qZeYbJU=" rel="preload stylesheet" as="style"><link crossorigin="anonymous" rel="preload" as="fetch" href="../index.json">
+<link crossorigin="anonymous" href="/andresr/assets/css/stylesheet.f6efeb9797cd46b841d2261c74870cc197250dfc5e6cc8abae6b0dd8f3b41b90.css" integrity="sha256-9u/rl5fNRrhB0iYcdIcMwZclDfxebMirrmsN2PO0G5A=" rel="preload stylesheet" as="style"><link crossorigin="anonymous" rel="preload" as="fetch" href="../index.json">
 <script defer crossorigin="anonymous" src="/andresr/assets/js/search.037ad1e63ed9641d5976015b7e764d5783ffcad137abc58014a0d6cb219e7c13.js" integrity="sha256-A3rR5j7ZZB1ZdgFbfnZNV4P/ytE3q8WAFKDWyyGefBM="></script>
 <link rel="icon" href="https://andresruizc.github.io/andresr/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://andresruizc.github.io/andresr/favicon-16x16.png">
@@ -55,16 +59,24 @@
         }
 
     </style>
-</noscript><meta property="og:title" content="Search" />
-<meta property="og:description" content="search" />
+</noscript><meta property="og:title" content="Search Results" />
+<meta property="og:description" content="This file exists solely to respond to /search URL with the related search layout template.
+No content shown here is rendered, all content is based in the template layouts/page/search.html
+Setting a very low sitemap priority will tell search engines this is not important content.
+This implementation uses Fusejs, jquery and mark.js
+Initial setup Search depends on additional output content type of JSON in config.toml ``` [outputs] home = [&ldquo;HTML&rdquo;, &ldquo;JSON&rdquo;] ```" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://andresruizc.github.io/andresr/search/" /><meta property="article:section" content="" />
 
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Search"/>
-<meta name="twitter:description" content="search"/>
+<meta name="twitter:title" content="Search Results"/>
+<meta name="twitter:description" content="This file exists solely to respond to /search URL with the related search layout template.
+No content shown here is rendered, all content is based in the template layouts/page/search.html
+Setting a very low sitemap priority will tell search engines this is not important content.
+This implementation uses Fusejs, jquery and mark.js
+Initial setup Search depends on additional output content type of JSON in config.toml ``` [outputs] home = [&ldquo;HTML&rdquo;, &ldquo;JSON&rdquo;] ```"/>
 
 
 <script type="application/ld+json">
@@ -75,7 +87,7 @@
     {
       "@type": "ListItem",
       "position":  1 ,
-      "name": "Search",
+      "name": "Search Results",
       "item": "https://andresruizc.github.io/andresr/search/"
     }
   ]
@@ -85,14 +97,14 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "Search",
-  "name": "Search",
-  "description": "search",
+  "headline": "Search Results",
+  "name": "Search Results",
+  "description": "This file exists solely to respond to /search URL with the related search layout template.\nNo content shown here is rendered, all content is based in the template layouts/page/search.html\nSetting a very low sitemap priority will tell search engines this is not important content.\nThis implementation uses Fusejs, jquery and mark.js\nInitial setup Search depends on additional output content type of JSON in config.toml ``` [outputs] home = [\u0026ldquo;HTML\u0026rdquo;, \u0026ldquo;JSON\u0026rdquo;] ```",
   "keywords": [
     
   ],
-  "articleBody": "",
-  "wordCount" : "0",
+  "articleBody": "This file exists solely to respond to /search URL with the related search layout template.\nNo content shown here is rendered, all content is based in the template layouts/page/search.html\nSetting a very low sitemap priority will tell search engines this is not important content.\nThis implementation uses Fusejs, jquery and mark.js\nInitial setup Search depends on additional output content type of JSON in config.toml ``` [outputs] home = [“HTML”, “JSON”] ```\nSearching additional fileds To search additional fields defined in front matter, you must add it in 2 places.\nEdit layouts/_default/index.JSON This exposes the values in /index.json i.e. add category ``` … “contents”:{{ .Content | plainify | jsonify }} {{ if .Params.tags }}, “tags”:{{ .Params.tags | jsonify }}{{end}}, “categories” : {{ .Params.categories | jsonify }}, … ```\nEdit fuse.js options to Search static/js/search.js ``` keys: [ “title”, “contents”, “tags”, “categories” ] ```\n",
+  "wordCount" : "142",
   "inLanguage": "en",
   "datePublished": "0001-01-01T00:00:00Z",
   "dateModified": "0001-01-01T00:00:00Z",
@@ -183,7 +195,7 @@
 <main class="main">
 
 <header class="page-header">
-    <h1>Search <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+    <h1>Search Results <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="11" cy="11" r="8"></circle>
             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -193,7 +205,7 @@
 </header>
 
 <div id="searchbox">
-    <input id="searchInput" autofocus placeholder="placeholder text in search input box"
+    <input id="searchInput" autofocus placeholder="Search Results ↵"
         aria-label="search" type="search" autocomplete="off">
     <ul id="searchResults" aria-label="search results"></ul>
 </div>
