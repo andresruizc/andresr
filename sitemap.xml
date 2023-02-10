@@ -8,7 +8,16 @@
     <loc>https://andresruizc.github.io/andresr/posts/</loc>
     <lastmod>2023-02-04T22:23:18+01:00</lastmod>
   </url><url>
+    <loc>https://andresruizc.github.io/andresr/tags/</loc>
+    <lastmod>2023-02-04T22:23:18+01:00</lastmod>
+  </url><url>
+    <loc>https://andresruizc.github.io/andresr/tags/theme/</loc>
+    <lastmod>2023-02-04T22:23:18+01:00</lastmod>
+  </url><url>
     <loc>https://andresruizc.github.io/andresr/posts/first/</loc>
+    <lastmod>2023-02-04T22:23:18+01:00</lastmod>
+  </url><url>
+    <loc>https://andresruizc.github.io/andresr/tags/tutorial/</loc>
     <lastmod>2023-02-04T22:23:18+01:00</lastmod>
   </url><url>
     <loc>https://andresruizc.github.io/andresr/categories/</loc>
@@ -23,7 +32,5 @@
   </url><url>
     <loc>https://andresruizc.github.io/andresr/search/</loc>
     <priority>0.1</priority>
-  </url><url>
-    <loc>https://andresruizc.github.io/andresr/tags/</loc>
   </url>
 </urlset>
