@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Arete Blog</title>
+    <title>Andres Blog</title>
     <link>https://andresruizc.github.io/andresr/</link>
-    <description>Recent content on Arete Blog</description>
+    <description>Recent content on Andres Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 04 Feb 2023 22:23:18 +0100</lastBuildDate><atom:link href="https://andresruizc.github.io/andresr/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 11 Feb 2023 22:23:18 +0100</lastBuildDate><atom:link href="https://andresruizc.github.io/andresr/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Retrieval recommender systems with TensorFlow</title>
+      <link>https://andresruizc.github.io/andresr/posts/retrieval_tf/</link>
+      <pubDate>Sat, 11 Feb 2023 22:23:18 +0100</pubDate>
+      
+      <guid>https://andresruizc.github.io/andresr/posts/retrieval_tf/</guid>
+      <description>Introduction to recommender systems Some of the most exciting features that big companies like Amazon, Netflix, and Spotify offer rely on recommender systems. Much useful information can be collected whenever users navigate the Amazon website, listen to a playlist on Spotify, or scroll through the Netflix catalog. This data includes user behavior, item attributes, or interactions between users and is what machine learning recommender systems use to make personalized recommendations.</description>
+    </item>
+    
     <item>
       <title>Thinking Negatively</title>
       <link>https://andresruizc.github.io/andresr/posts/first/</link>
@@ -44,17 +53,17 @@ Suffering is universal. But victimhood is optional. There is a difference betwee
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://andresruizc.github.io/andresr/archive/</guid>
-      <description>2023 04 Feb &amp;ndash; Thinking Negatively</description>
+      <description>2023 11 Feb &amp;ndash; Retrieval recommender systems with TensorFlow
+04 Feb &amp;ndash; Thinking Negatively</description>
     </item>
     
     <item>
-      <title>Reading List</title>
+      <title>Reading</title>
       <link>https://andresruizc.github.io/andresr/reading_list/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://andresruizc.github.io/andresr/reading_list/</guid>
-      <description>Here&amp;rsquo;s a list of the books I&amp;rsquo;ve ever read and the ones I&amp;rsquo;d like to read.
-Next The 48 Laws of Power Build: An Unorthodox Guide to Making Things Worth Making Never Finished How to Think Like A Rocket Scientist The Hard Things About the Hard Things The Courage to be Disliked The Ego is the Enemy Stillness is the Key The Lean Startup Books read Atomic Habits by James Clear Be Water, My Friend Man&amp;rsquo;s Search for Meaning The War of Art The Art of War The Midnigth Library Meditations When Things Fall Apart How to meditate How to Think Like a Roman Emperor The Obstacle is the Way The Art of a Good Life The Proof is in the Plants Sapiens 21 lessons for the XXI century Infinite Powers Factfulness Siddhartha Farenheit 451 1984 Code Breaker Steve Jobs El día que se perdió la cordura The Gift Shackleton Bajo el Aro El libro Negro del Emprendedor Innovadores Steve Wozniak An Austronauts Guide to Life on Earth The future of Humanity Shoe The Psychology of Money Elon Musk El legado de Mandela Zero to One The Myth of Artificial Intelligence </description>
+      <description>Next The 48 Laws of Power by Robert Greene Build: An Unorthodox Guide to Making Things Worth Making by Tony Fadell Never Finished by David Goggins How to Think Like A Rocket Scientist by Ozan Varol The Hard Things About the Hard Things by Ben Horowitz The Courage to be Disliked by Ichiro Kishimi and Fumitake Koga The Ego is the Enemy by Ryan Holiday Stillness is the Key by Ryan Holiday The Lean Startup by Eric Ries Books read Atomic Habits by James Clear Be Water, My Friend by Shannon Lee Man&amp;rsquo;s Search for Meaning by Viktor Frankl The War of Art by Steven Pressfield The Midnigth Library by Matt Haig Meditations by Marcus Aurelius When Things Fall Apart by Pema Chödron How to meditate by Pema Chödron How to Think Like a Roman Emperor by Donald Robertson The Obstacle is the Way by Ryan Holiday The Art of a Good Life by William B.</description>
     </item>
     
     
