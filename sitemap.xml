@@ -3,13 +3,25 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://andresruizc.github.io/andresr/</loc>
-    <lastmod>2023-02-11T22:23:18+01:00</lastmod>
+    <lastmod>2023-02-12T18:30:00+01:00</lastmod>
+  </url><url>
+    <loc>https://andresruizc.github.io/andresr/posts/tfx_tutorial/</loc>
+    <lastmod>2023-02-12T18:30:00+01:00</lastmod>
   </url><url>
     <loc>https://andresruizc.github.io/andresr/tags/ml/</loc>
-    <lastmod>2023-02-11T22:23:18+01:00</lastmod>
+    <lastmod>2023-02-12T18:30:00+01:00</lastmod>
+  </url><url>
+    <loc>https://andresruizc.github.io/andresr/tags/pipeline/</loc>
+    <lastmod>2023-02-12T18:30:00+01:00</lastmod>
   </url><url>
     <loc>https://andresruizc.github.io/andresr/posts/</loc>
-    <lastmod>2023-02-11T22:23:18+01:00</lastmod>
+    <lastmod>2023-02-12T18:30:00+01:00</lastmod>
+  </url><url>
+    <loc>https://andresruizc.github.io/andresr/tags/</loc>
+    <lastmod>2023-02-12T18:30:00+01:00</lastmod>
+  </url><url>
+    <loc>https://andresruizc.github.io/andresr/tags/tfx/</loc>
+    <lastmod>2023-02-12T18:30:00+01:00</lastmod>
   </url><url>
     <loc>https://andresruizc.github.io/andresr/tags/recommender/</loc>
     <lastmod>2023-02-11T22:23:18+01:00</lastmod>
@@ -17,19 +29,19 @@
     <loc>https://andresruizc.github.io/andresr/posts/retrieval_tf/</loc>
     <lastmod>2023-02-11T22:23:18+01:00</lastmod>
   </url><url>
-    <loc>https://andresruizc.github.io/andresr/tags/</loc>
-    <lastmod>2023-02-11T22:23:18+01:00</lastmod>
-  </url><url>
     <loc>https://andresruizc.github.io/andresr/tags/tensorflow/</loc>
     <lastmod>2023-02-11T22:23:18+01:00</lastmod>
   </url><url>
-    <loc>https://andresruizc.github.io/andresr/tags/theme/</loc>
+    <loc>https://andresruizc.github.io/andresr/tags/poetry/</loc>
+    <lastmod>2023-02-07T22:23:18+01:00</lastmod>
+  </url><url>
+    <loc>https://andresruizc.github.io/andresr/posts/charlotte_poem/</loc>
+    <lastmod>2023-02-07T22:23:18+01:00</lastmod>
+  </url><url>
+    <loc>https://andresruizc.github.io/andresr/tags/anticipation/</loc>
     <lastmod>2023-02-04T22:23:18+01:00</lastmod>
   </url><url>
-    <loc>https://andresruizc.github.io/andresr/posts/first/</loc>
-    <lastmod>2023-02-04T22:23:18+01:00</lastmod>
-  </url><url>
-    <loc>https://andresruizc.github.io/andresr/tags/tutorial/</loc>
+    <loc>https://andresruizc.github.io/andresr/posts/think_negatively/</loc>
     <lastmod>2023-02-04T22:23:18+01:00</lastmod>
   </url><url>
     <loc>https://andresruizc.github.io/andresr/categories/</loc>

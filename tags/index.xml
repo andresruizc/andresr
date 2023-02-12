@@ -6,13 +6,31 @@
     <description>Recent content in Tags on Andres Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 11 Feb 2023 22:23:18 +0100</lastBuildDate><atom:link href="https://andresruizc.github.io/andresr/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 12 Feb 2023 18:30:00 +0100</lastBuildDate><atom:link href="https://andresruizc.github.io/andresr/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>ML</title>
       <link>https://andresruizc.github.io/andresr/tags/ml/</link>
-      <pubDate>Sat, 11 Feb 2023 22:23:18 +0100</pubDate>
+      <pubDate>Sun, 12 Feb 2023 18:30:00 +0100</pubDate>
       
       <guid>https://andresruizc.github.io/andresr/tags/ml/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Pipeline</title>
+      <link>https://andresruizc.github.io/andresr/tags/pipeline/</link>
+      <pubDate>Sun, 12 Feb 2023 18:30:00 +0100</pubDate>
+      
+      <guid>https://andresruizc.github.io/andresr/tags/pipeline/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>TFX</title>
+      <link>https://andresruizc.github.io/andresr/tags/tfx/</link>
+      <pubDate>Sun, 12 Feb 2023 18:30:00 +0100</pubDate>
+      
+      <guid>https://andresruizc.github.io/andresr/tags/tfx/</guid>
       <description></description>
     </item>
     
@@ -35,20 +53,20 @@
     </item>
     
     <item>
-      <title>theme</title>
-      <link>https://andresruizc.github.io/andresr/tags/theme/</link>
-      <pubDate>Sat, 04 Feb 2023 22:23:18 +0100</pubDate>
+      <title>Poetry</title>
+      <link>https://andresruizc.github.io/andresr/tags/poetry/</link>
+      <pubDate>Tue, 07 Feb 2023 22:23:18 +0100</pubDate>
       
-      <guid>https://andresruizc.github.io/andresr/tags/theme/</guid>
+      <guid>https://andresruizc.github.io/andresr/tags/poetry/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>tutorial</title>
-      <link>https://andresruizc.github.io/andresr/tags/tutorial/</link>
+      <title>Anticipation</title>
+      <link>https://andresruizc.github.io/andresr/tags/anticipation/</link>
       <pubDate>Sat, 04 Feb 2023 22:23:18 +0100</pubDate>
       
-      <guid>https://andresruizc.github.io/andresr/tags/tutorial/</guid>
+      <guid>https://andresruizc.github.io/andresr/tags/anticipation/</guid>
       <description></description>
     </item>
     

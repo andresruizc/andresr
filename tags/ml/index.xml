@@ -6,9 +6,20 @@
     <description>Recent content in ML on Andres Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 11 Feb 2023 22:23:18 +0100</lastBuildDate><atom:link href="https://andresruizc.github.io/andresr/tags/ml/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 12 Feb 2023 18:30:00 +0100</lastBuildDate><atom:link href="https://andresruizc.github.io/andresr/tags/ml/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Retrieval recommender systems with TensorFlow</title>
+      <title>Introduction to TFX pipelines</title>
+      <link>https://andresruizc.github.io/andresr/posts/tfx_tutorial/</link>
+      <pubDate>Sun, 12 Feb 2023 18:30:00 +0100</pubDate>
+      
+      <guid>https://andresruizc.github.io/andresr/posts/tfx_tutorial/</guid>
+      <description>NOTE : This tutorial is a personal wrap-up of the TFX Pipeline Tutorial using the Penguin Dataset. The code used is identical, but I have added an introduction to TFX and several explanations for every section. The goal of this post to document my learning notes about TFX.
+What is TFX, and why is needed?
+Machine Learning is more than getting data, training models, and making predictions. A wide range of constraints and requirements need to be addressed for ML to add value in the real world:</description>
+    </item>
+    
+    <item>
+      <title>Retrieval stage recommender systems with TensorFlow</title>
       <link>https://andresruizc.github.io/andresr/posts/retrieval_tf/</link>
       <pubDate>Sat, 11 Feb 2023 22:23:18 +0100</pubDate>
       

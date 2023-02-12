@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>TFX on Andres Blog</title>
+    <link>https://andresruizc.github.io/andresr/tags/tfx/</link>
+    <description>Recent content in TFX on Andres Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 12 Feb 2023 18:30:00 +0100</lastBuildDate><atom:link href="https://andresruizc.github.io/andresr/tags/tfx/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Introduction to TFX pipelines</title>
+      <link>https://andresruizc.github.io/andresr/posts/tfx_tutorial/</link>
+      <pubDate>Sun, 12 Feb 2023 18:30:00 +0100</pubDate>
+      
+      <guid>https://andresruizc.github.io/andresr/posts/tfx_tutorial/</guid>
+      <description>NOTE : This tutorial is a personal wrap-up of the TFX Pipeline Tutorial using the Penguin Dataset. The code used is identical, but I have added an introduction to TFX and several explanations for every section. The goal of this post to document my learning notes about TFX.
+What is TFX, and why is needed?
+Machine Learning is more than getting data, training models, and making predictions. A wide range of constraints and requirements need to be addressed for ML to add value in the real world:</description>
+    </item>
+    
+  </channel>
+</rss>

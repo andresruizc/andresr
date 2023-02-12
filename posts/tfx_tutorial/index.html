@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Introduction to TFX pipelines | Andres Blog</title>
+<meta name="keywords" content="ML, TFX, Pipeline">
+<meta name="description" content="NOTE : This tutorial is a personal wrap-up of the TFX Pipeline Tutorial using the Penguin Dataset. The code used is identical, but I have added an introduction to TFX and several explanations for every section. The goal of this post to document my learning notes about TFX.
+What is TFX, and why is needed?
+Machine Learning is more than getting data, training models, and making predictions. A wide range of constraints and requirements need to be addressed for ML to add value in the real world:">
+<meta name="author" content="">
+<link rel="canonical" href="https://andresruizc.github.io/andresr/posts/tfx_tutorial/">
+<link crossorigin="anonymous" href="/andresr/assets/css/stylesheet.265fc71454ed0df4c28557418d1be5cdf144d1b57d27561fa90e51d4bd689dbe.css" integrity="sha256-Jl/HFFTtDfTChVdBjRvlzfFE0bV9J1YfqQ5R1L1onb4=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/andresr/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://andresruizc.github.io/andresr/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://andresruizc.github.io/andresr/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://andresruizc.github.io/andresr/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://andresruizc.github.io/andresr/apple-touch-icon.png">
+<link rel="mask-icon" href="https://andresruizc.github.io/andresr/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="Introduction to TFX pipelines" />
+<meta property="og:description" content="NOTE : This tutorial is a personal wrap-up of the TFX Pipeline Tutorial using the Penguin Dataset. The code used is identical, but I have added an introduction to TFX and several explanations for every section. The goal of this post to document my learning notes about TFX.
+What is TFX, and why is needed?
+Machine Learning is more than getting data, training models, and making predictions. A wide range of constraints and requirements need to be addressed for ML to add value in the real world:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://andresruizc.github.io/andresr/posts/tfx_tutorial/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-02-12T18:30:00+01:00" />
+<meta property="article:modified_time" content="2023-02-12T18:30:00+01:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Introduction to TFX pipelines"/>
+<meta name="twitter:description" content="NOTE : This tutorial is a personal wrap-up of the TFX Pipeline Tutorial using the Penguin Dataset. The code used is identical, but I have added an introduction to TFX and several explanations for every section. The goal of this post to document my learning notes about TFX.
+What is TFX, and why is needed?
+Machine Learning is more than getting data, training models, and making predictions. A wide range of constraints and requirements need to be addressed for ML to add value in the real world:"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://andresruizc.github.io/andresr/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Introduction to TFX pipelines",
+      "item": "https://andresruizc.github.io/andresr/posts/tfx_tutorial/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Introduction to TFX pipelines",
+  "name": "Introduction to TFX pipelines",
+  "description": "NOTE : This tutorial is a personal wrap-up of the TFX Pipeline Tutorial using the Penguin Dataset. The code used is identical, but I have added an introduction to TFX and several explanations for every section. The goal of this post to document my learning notes about TFX.\nWhat is TFX, and why is needed?\nMachine Learning is more than getting data, training models, and making predictions. A wide range of constraints and requirements need to be addressed for ML to add value in the real world:",
+  "keywords": [
+    "ML", "TFX", "Pipeline"
+  ],
+  "articleBody": "NOTE : This tutorial is a personal wrap-up of the TFX Pipeline Tutorial using the Penguin Dataset. The code used is identical, but I have added an introduction to TFX and several explanations for every section. The goal of this post to document my learning notes about TFX.\nWhat is TFX, and why is needed?\nMachine Learning is more than getting data, training models, and making predictions. A wide range of constraints and requirements need to be addressed for ML to add value in the real world:\nA highly available, scalable, and consistent infrastructure to store and process data as efficiently as possible.\nModel deployment. Not only do we need a recommender system that is able to make useful predictions, but we also need to deploy it so that users on their smartphones or web browser can benefit from it. When it comes to deploying models, here are some points to consider:\nAre we trying to optimize our application for latency or throughput? Does the application require our models to scale automatically to handle cyclic traffic requirements? Do we plan to compare models in production through A/B tests? Once our model is deployed, we need to monitor it to ensure it is working properly. In case it is not, there are several options. One of them could be to create a feedback loop used to continuously retrain the model and improve the confidence of future label predictions, also known as active learning.\nIn some areas, such as autonomous vehicles or healthcare, transparency about how ML models arrive at their predictions is critical to consumers and regulators who need to trust the model predictions if they will accept the decisions based on them. Tools for model governance are required.\nMLOps : a combinationof practices and tools that increase organizations’ ability to deliver high-velocity applications and services.\nAnd finally, we need an end-to-end ML pipeline , an iterative procedure to automate and scale all the previous stages so that engineers can perform experiments until the desired performance is obtained.\nTFX is a set of libraries for building, tuning, deploying, and managing the production of ML models. It consists of a set of high-level APIs that can be used to perform data ingestion, data analysis and visualization, model development, and model deployment, among others. Our ML lifecycle doesn’t finish when models are deployed; there is a wide range of requirements, such as model governance, model auditing, or model tracking, and TFX offers tools for that.\nImage\nIt is used by top tech companies all around the globe across many different domains, including Spotify, Airbus, Gmail, and Twitter.\nFor example, Spotify offers a recommendation system that provides personalized music recommendations to its users based on different factors. One could think that this problem is solved just by creating a ML model with a good performance, but nothing is further from the truth. Spotify has millions of users, each one of them with hundreds of songs, audiobooks, or podcasts added to their libraries. The amount of data is vast, so scaling ML models requires a specific infrastructure. Here’s where TFX comes.\nA TFX can be used to create a pipeline that includes data ingestion, data visualization, data analysis, model training, model tuning, model deployment, model governance, and many more. Each of these steps can be implemented using TFX components (high-level APIs), and the result is an end-to-end pipeline that automates and scales all the previous stages in an efficient manner. Spotify also uses Google Cloud Platform and Kubeflow Pipelines.\nNow that we have introduced TFX, let’s code a simple pipeline.\nPackage installation and variables set up !pip install -U tfx !pip uninstall shapely -y # Temporal solution to avoid ImportError in Google Colab import tensorflow as tf print('TensorFlow version: {}'.format(tf.__version__)) from tfx import v1 as tfx print('TFX version: {}'.format(tfx.__version__)) import os from absl import logging PIPELINE_NAME = \"penguin-simple\" # Output directory to store artifacts generated from the pipeline. PIPELINE_ROOT = os.path.join('pipelines', PIPELINE_NAME) # Path to a SQLite DB file to use as an MLMD storage. METADATA_PATH = os.path.join('metadata', PIPELINE_NAME, 'metadata.db') # Output directory where created models from the pipeline will be exported. SERVING_MODEL_DIR = os.path.join('serving_model', PIPELINE_NAME) logging.set_verbosity(logging.INFO) Prepare data For this tutorial, we will be using the Palmer Penguins dataset, which contains size measurements for three penguins species observed on three different islands in the Palmer Archipelago, Antarctica. Apart from the species each penguin belongs to, it also contains four additional features: culmen_length_mm, culmen_depth_mm, flipper_length_mm, and body_mass_g.\nThe dataset can be downloaded through an URL, but because the TFX component ExampleGen reads from a directory, we need to copy the dataset to it.\nimport urllib.request import tempfile DATA_ROOT = tempfile.mkdtemp(prefix='tfx-data') # Create a temporary directory. _data_url = 'https://raw.githubusercontent.com/tensorflow/tfx/master/tfx/examples/penguin/data/labelled/penguins_processed.csv' _data_filepath = os.path.join(DATA_ROOT, \"data.csv\") urllib.request.urlretrieve(_data_url, _data_filepath) !head {_data_filepath} species,culmen_length_mm,culmen_depth_mm,flipper_length_mm,body_mass_g 0,0.2545454545454545,0.6666666666666666,0.15254237288135594,0.2916666666666667 0,0.26909090909090905,0.5119047619047618,0.23728813559322035,0.3055555555555556 0,0.29818181818181805,0.5833333333333334,0.3898305084745763,0.1527777777777778 0,0.16727272727272732,0.7380952380952381,0.3559322033898305,0.20833333333333334 0,0.26181818181818167,0.892857142857143,0.3050847457627119,0.2638888888888889 0,0.24727272727272717,0.5595238095238096,0.15254237288135594,0.2569444444444444 0,0.25818181818181823,0.773809523809524,0.3898305084745763,0.5486111111111112 0,0.32727272727272727,0.5357142857142859,0.1694915254237288,0.1388888888888889 0,0.23636363636363636,0.9642857142857142,0.3220338983050847,0.3055555555555556 Pipeline components Our basic pipeline consists of five components: CsvExampleGen (ingest data files and converts them to TFX internal format), Trainer (trains an ML model), and Pusher (deploys the model on a serving infrastructure).\nWrite model training code The goal of the model is to classify a penguin based on the four attributes previously mentioned. There are several algorithms to solve this problem, such as KNN, Logistic regression, or SVMs, but we will code a very simple DNN.\nOne of the main differences between plain TensorFlow and TFX is that our model training code needs to be stored in a separate file, and some specific functions need to be included so that the Trainer component and the remaining components of the pipeline can properly work.\nThe first thing we need to do is to import the necessary libraries and define some variables.\nThe Trainer component requires a specific dataset schema, and a pipeline component but because we are working only with 4 features, we can manually define it by creating a feature spec.\nfrom typing import List from absl import logging import tensorflow as tf from tensorflow import keras from tensorflow_transform.tf_metadata import schema_utils from tfx import v1 as tfx from tfx_bsl.public import tfxio from tensorflow_metadata.proto.v0 import schema_pb2 _FEATURE_KEYS = [ 'culmen_length_mm', 'culmen_depth_mm', 'flipper_length_mm', 'body_mass_g' ] _LABEL_KEY = 'species' _TRAIN_BATCH_SIZE = 20 _EVAL_BATCH_SIZE = 10 _FEATURE_SPEC = { **{ feature: tf.io.FixedLenFeature(shape=[1], dtype=tf.float32) for feature in _FEATURE_KEYS }, _LABEL_KEY: tf.io.FixedLenFeature(shape=[1], dtype=tf.int64) } We also need one function to generate the features and labels for model training. It will be used as the entry point for the Trainer component.\ndef _input_fn(file_pattern: List[str], data_accessor: tfx.components.DataAccessor, schema: schema_pb2.Schema, batch_size: int = 200) -\u003e tf.data.Dataset: \"\"\" Args: file_pattern: List of paths or patterns of input tfrecord files. data_accessor: DataAccessor for converting input to RecordBatch. schema: schema of the input data. batch_size: representing the number of consecutive elements of returned dataset to combine in a single batch Returns: A dataset that contains (features, indices) tuple where features is a dictionary of Tensors, and indices is a single Tensor of label indices. \"\"\" return data_accessor.tf_dataset_factory( file_pattern, tfxio.TensorFlowDatasetOptions( batch_size=batch_size, label_key=_LABEL_KEY), schema=schema).repeat() We need another function to create the model using the Keras API. It uses a very simple DNN with two hidden layers, the Adam optimizer, the categorical cross entropy as loss function, and the accuracy as metric.\ndef _build_keras_model() -\u003e tf.keras.Model: inputs = [keras.layers.Input(shape=(1,), name=f) for f in _FEATURE_KEYS] d = keras.layers.concatenate(inputs) for _ in range(2): d = keras.layers.Dense(8, activation='relu')(d) outputs = keras.layers.Dense(3)(d) model = keras.Model(inputs=inputs, outputs=outputs) model.compile( optimizer=keras.optimizers.Adam(1e-2), loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True), metrics=[keras.metrics.SparseCategoricalAccuracy()]) model.summary(print_fn=logging.info) return model And another function that will later be called by the TFX Trainer. It builds on the previous two. Finally, it saves the model.\ndef run_fn(fn_args: tfx.components.FnArgs): # This schema is usually either an output of SchemaGen or a manually-curated # version provided by pipeline author. A schema can also derived from TFT # graph if a Transform component is used. In the case when either is missing, # `schema_from_feature_spec` could be used to generate schema from very simple # feature_spec, but the schema returned would be very primitive. schema = schema_utils.schema_from_feature_spec(_FEATURE_SPEC) train_dataset = _input_fn( fn_args.train_files, fn_args.data_accessor, schema, batch_size=_TRAIN_BATCH_SIZE) eval_dataset = _input_fn( fn_args.eval_files, fn_args.data_accessor, schema, batch_size=_EVAL_BATCH_SIZE) model = _build_keras_model() model.fit( train_dataset, steps_per_epoch=fn_args.train_steps, validation_data=eval_dataset, validation_steps=fn_args.eval_steps) model.save(fn_args.serving_model_dir, save_format='tf') The following code cell puts everything together and writes it to a python file.\n_trainer_module_file = 'penguin_trainer.py' %%writefile {_trainer_module_file} from typing import List from absl import logging import tensorflow as tf from tensorflow import keras from tensorflow_transform.tf_metadata import schema_utils from tfx import v1 as tfx from tfx_bsl.public import tfxio from tensorflow_metadata.proto.v0 import schema_pb2 _FEATURE_KEYS = [ 'culmen_length_mm', 'culmen_depth_mm', 'flipper_length_mm', 'body_mass_g' ] _LABEL_KEY = 'species' _TRAIN_BATCH_SIZE = 20 _EVAL_BATCH_SIZE = 10 _FEATURE_SPEC = { **{ feature: tf.io.FixedLenFeature(shape=[1], dtype=tf.float32) for feature in _FEATURE_KEYS }, _LABEL_KEY: tf.io.FixedLenFeature(shape=[1], dtype=tf.int64) } def _input_fn(file_pattern: List[str], data_accessor: tfx.components.DataAccessor, schema: schema_pb2.Schema, batch_size: int = 200) -\u003e tf.data.Dataset: return data_accessor.tf_dataset_factory( file_pattern, tfxio.TensorFlowDatasetOptions( batch_size=batch_size, label_key=_LABEL_KEY), schema=schema).repeat() def _build_keras_model() -\u003e tf.keras.Model: inputs = [keras.layers.Input(shape=(1,), name=f) for f in _FEATURE_KEYS] d = keras.layers.concatenate(inputs) for _ in range(2): d = keras.layers.Dense(8, activation='relu')(d) outputs = keras.layers.Dense(3)(d) model = keras.Model(inputs=inputs, outputs=outputs) model.compile( optimizer=keras.optimizers.Adam(1e-2), loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True), metrics=[keras.metrics.SparseCategoricalAccuracy()]) model.summary(print_fn=logging.info) return model def run_fn(fn_args: tfx.components.FnArgs): train_dataset = _input_fn( fn_args.train_files, fn_args.data_accessor, schema, batch_size=_TRAIN_BATCH_SIZE) eval_dataset = _input_fn( fn_args.eval_files, fn_args.data_accessor, schema, batch_size=_EVAL_BATCH_SIZE) model = _build_keras_model() model.fit( train_dataset, steps_per_epoch=fn_args.train_steps, validation_data=eval_dataset, validation_steps=fn_args.eval_steps) model.save(fn_args.serving_model_dir, save_format='tf') Write a pipeline definition Now we can write a function to create the TFX pipeline. It consists of the three components previously mentioned (CsvExampleGen, Trainer, and Pusher).\ndef _create_pipeline(pipeline_name: str, pipeline_root: str, data_root: str, module_file: str, serving_model_dir: str, metadata_path: str) -\u003e tfx.dsl.Pipeline: # Brings data into the pipeline. example_gen = tfx.components.CsvExampleGen(input_base=data_root) # Uses user-provided Python function that trains a model. trainer = tfx.components.Trainer( module_file=module_file, examples=example_gen.outputs['examples'], train_args=tfx.proto.TrainArgs(num_steps=100), eval_args=tfx.proto.EvalArgs(num_steps=5)) # Pushes the model to a filesystem destination. pusher = tfx.components.Pusher( model=trainer.outputs['model'], push_destination=tfx.proto.PushDestination( filesystem=tfx.proto.PushDestination.Filesystem( base_directory=serving_model_dir))) # Following three components will be included in the pipeline. components = [ example_gen, trainer, pusher, ] return tfx.dsl.Pipeline( pipeline_name=pipeline_name, pipeline_root=pipeline_root, metadata_connection_config=tfx.orchestration.metadata .sqlite_metadata_connection_config(metadata_path), components=components) Run the pipeline Finally, the full pipeline can be run with the following code. We could integrate this TFX pipeline with the Google Cloud AI Platform, which will be covered in another blog post.\ntfx.orchestration.LocalDagRunner().run( _create_pipeline( pipeline_name=PIPELINE_NAME, pipeline_root=PIPELINE_ROOT, data_root=DATA_ROOT, module_file=_trainer_module_file, serving_model_dir=SERVING_MODEL_DIR, metadata_path=METADATA_PATH)) We can check that the model trained is pushed by the Pusher to the directory specified in the beginning of this tutorial.\n!find {SERVING_MODEL_DIR} serving_model/penguin-simple serving_model/penguin-simple/1676215135 serving_model/penguin-simple/1676215135/keras_metadata.pb serving_model/penguin-simple/1676215135/variables serving_model/penguin-simple/1676215135/variables/variables.index serving_model/penguin-simple/1676215135/variables/variables.data-00000-of-00001 serving_model/penguin-simple/1676215135/assets serving_model/penguin-simple/1676215135/fingerprint.pb serving_model/penguin-simple/1676215135/saved_model.pb Conclusion and future lines of improvement In this tutorial we have first introduced TFX and took a look at how Spotify it to create personalized recommendations. Then, we created a basic Pipeline with three components: CsvExampleGen, Trainer, and Pusher.\nThis pipeline could be improved in several ways. First, more TFX components could be used:\nStatisticsGen to calculate statistics for the dataset. SchemaGen to examine the statistics and creates an initial data schema. Transform to perform high-quality feature engineering techniques. Evaluator component to compare our models with some predefined baseline. ",
+  "wordCount" : "1782",
+  "inLanguage": "en",
+  "datePublished": "2023-02-12T18:30:00+01:00",
+  "dateModified": "2023-02-12T18:30:00+01:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://andresruizc.github.io/andresr/posts/tfx_tutorial/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Andres Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://andresruizc.github.io/andresr/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://andresruizc.github.io/andresr/" accesskey="h" title="Andres Blog (Alt + H)">Andres Blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://andresruizc.github.io/andresr/archive/index.html" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://andresruizc.github.io/andresr/search/index.html" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://andresruizc.github.io/andresr/quotes/index.html" title="Quotes">
+                    <span>Quotes</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://andresruizc.github.io/andresr/reading_list/index.html" title="Reading">
+                    <span>Reading</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://andresruizc.github.io/andresr/tags/index.html" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      Introduction to TFX pipelines
+    </h1>
+    <div class="post-meta"><span title='2023-02-12 18:30:00 +0100 CET'>February 12, 2023</span>&nbsp;·&nbsp;9 min
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#package-installation-and-variables-set-up" aria-label="Package installation and variables set up">Package installation and variables set up</a></li>
+                <li>
+                    <a href="#prepare-data" aria-label="Prepare data">Prepare data</a></li>
+                <li>
+                    <a href="#pipeline-components" aria-label="Pipeline components">Pipeline components</a></li>
+                <li>
+                    <a href="#write-model-training-code" aria-label="Write model training code">Write model training code</a></li>
+                <li>
+                    <a href="#write-a-pipeline-definition" aria-label="Write a pipeline definition">Write a pipeline definition</a></li>
+                <li>
+                    <a href="#run-the-pipeline" aria-label="Run the pipeline">Run the pipeline</a></li>
+                <li>
+                    <a href="#conclusion-and-future-lines-of-improvement" aria-label="Conclusion and future lines of improvement">Conclusion and future lines of improvement</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p><strong>NOTE</strong> : This tutorial is a personal wrap-up of the <a href="https://www.tensorflow.org/tfx/tutorials/tfx/penguin_simple">TFX Pipeline Tutorial using the Penguin Dataset</a>. The code used is identical, but I have added an introduction to TFX and several explanations for every section. The goal of this post to document my learning notes about TFX.</p>
+<p><strong>What is TFX, and why is needed?</strong></p>
+<p>Machine Learning is more than getting data, training models, and making predictions. A wide range of constraints and requirements need to be addressed for ML to add value in the real world:</p>
+<ul>
+<li>
+<p><strong>A highly available, scalable, and consistent infrastructure to store and process data</strong> as efficiently as possible.</p>
+</li>
+<li>
+<p><strong>Model deployment</strong>. Not only do we need a recommender system that is able to make useful predictions, but we also need to deploy it so that users on their smartphones or web browser can benefit from it. When it comes to deploying models, here are some points to consider:</p>
+<ul>
+<li>Are we trying to optimize our application for latency or throughput?</li>
+<li>Does the application require our models to scale automatically to handle cyclic traffic requirements?</li>
+<li>Do we plan to compare models in production through A/B tests?</li>
+</ul>
+</li>
+<li>
+<p>Once our model is deployed, we need to monitor it to ensure it is working properly. In case it is not, there are several options. One of them could be to create a feedback loop used to continuously retrain the model and improve the confidence of future label predictions, also known as <strong>active learning.</strong></p>
+</li>
+<li>
+<p>In some areas, such as autonomous vehicles or healthcare,  <strong>transparency about how ML models arrive at their predictions is critical to consumers and regulators</strong>  who need to trust the model predictions if they will accept the decisions based on them. Tools for model governance are required.</p>
+</li>
+<li>
+<p><strong>MLOps</strong> : a combinationof practices and tools that increase organizations&rsquo; ability to deliver high-velocity applications and services.</p>
+</li>
+<li>
+<p>And finally, we need an <strong>end-to-end ML pipeline</strong> , an iterative procedure to automate and scale all the previous stages so that engineers can perform experiments until the desired performance is obtained.</p>
+</li>
+</ul>
+<p>TFX is a set of libraries for building, tuning, deploying, and managing the production of ML models. It consists of a set of high-level APIs that can be used to perform data ingestion, data analysis and visualization, model development, and model deployment, among others. Our ML lifecycle doesn&rsquo;t finish when models are deployed; there is a wide range of requirements, such as model governance, model auditing, or model tracking, and TFX offers tools for that.</p>
+<p>Image</p>
+<p><img loading="lazy" src="RackMultipart20230212-1-rwum9o_html_dbbf155fb586410f.png" alt=""  />
+</p>
+<p>It is used by top tech companies all around the globe across many different domains, including Spotify, Airbus, Gmail, and Twitter.</p>
+<p>For example, Spotify offers a recommendation system that provides personalized music recommendations to its users based on different factors. One could think that this problem is solved just by creating a ML model with a good performance, but nothing is further from the truth. Spotify has millions of users, each one of them with hundreds of songs, audiobooks, or podcasts added to their libraries. The amount of data is vast, so scaling ML models requires a specific infrastructure. Here&rsquo;s where TFX comes.</p>
+<p>A TFX can be used to create a pipeline that includes data ingestion, data visualization, data analysis, model training, model tuning, model deployment, model governance, and many more. Each of these steps can be implemented using TFX components (high-level APIs), and the result is an end-to-end pipeline that automates and scales all the previous stages in an efficient manner. Spotify also uses Google Cloud Platform and Kubeflow Pipelines.</p>
+<p>Now that we have introduced TFX, let&rsquo;s code a simple pipeline.</p>
+<h3 id="package-installation-and-variables-set-up">Package installation and variables set up<a hidden class="anchor" aria-hidden="true" href="#package-installation-and-variables-set-up">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">!</span>pip install <span style="color:#f92672">-</span>U tfx
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">!</span>pip uninstall shapely <span style="color:#f92672">-</span>y <span style="color:#75715e"># Temporal solution to avoid ImportError in Google Colab</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> tensorflow <span style="color:#66d9ef">as</span> tf
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;TensorFlow version: </span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>format(tf<span style="color:#f92672">.</span>__version__))
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> tfx <span style="color:#f92672">import</span> v1 <span style="color:#66d9ef">as</span> tfx
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;TFX version: </span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#39;</span><span style="color:#f92672">.</span>format(tfx<span style="color:#f92672">.</span>__version__))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> absl <span style="color:#f92672">import</span> logging
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PIPELINE_NAME <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;penguin-simple&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Output directory to store artifacts generated from the pipeline.</span>
+</span></span><span style="display:flex;"><span>PIPELINE_ROOT <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(<span style="color:#e6db74">&#39;pipelines&#39;</span>, PIPELINE_NAME)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Path to a SQLite DB file to use as an MLMD storage.</span>
+</span></span><span style="display:flex;"><span>METADATA_PATH <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(<span style="color:#e6db74">&#39;metadata&#39;</span>, PIPELINE_NAME, <span style="color:#e6db74">&#39;metadata.db&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Output directory where created models from the pipeline will be exported.</span>
+</span></span><span style="display:flex;"><span>SERVING_MODEL_DIR <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(<span style="color:#e6db74">&#39;serving_model&#39;</span>, PIPELINE_NAME)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>logging<span style="color:#f92672">.</span>set_verbosity(logging<span style="color:#f92672">.</span>INFO)
+</span></span></code></pre></div><h3 id="prepare-data">Prepare data<a hidden class="anchor" aria-hidden="true" href="#prepare-data">#</a></h3>
+<p>For this tutorial, we will be using the Palmer Penguins dataset, which contains size measurements for three penguins species observed on three different islands in the Palmer Archipelago, Antarctica. Apart from the species each penguin belongs to, it also contains four additional features: culmen_length_mm, culmen_depth_mm, flipper_length_mm, and body_mass_g.</p>
+<p>The dataset can be downloaded through an URL, but because the TFX component ExampleGen reads from a directory, we need to copy the dataset to it.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> urllib.request
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> tempfile
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>DATA_ROOT <span style="color:#f92672">=</span> tempfile<span style="color:#f92672">.</span>mkdtemp(prefix<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;tfx-data&#39;</span>)  <span style="color:#75715e"># Create a temporary directory.</span>
+</span></span><span style="display:flex;"><span>_data_url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;https://raw.githubusercontent.com/tensorflow/tfx/master/tfx/examples/penguin/data/labelled/penguins_processed.csv&#39;</span>
+</span></span><span style="display:flex;"><span>_data_filepath <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(DATA_ROOT, <span style="color:#e6db74">&#34;data.csv&#34;</span>)
+</span></span><span style="display:flex;"><span>urllib<span style="color:#f92672">.</span>request<span style="color:#f92672">.</span>urlretrieve(_data_url, _data_filepath)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">!</span>head {_data_filepath}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-plaintext" data-lang="plaintext"><span style="display:flex;"><span>species,culmen_length_mm,culmen_depth_mm,flipper_length_mm,body_mass_g
+</span></span><span style="display:flex;"><span>0,0.2545454545454545,0.6666666666666666,0.15254237288135594,0.2916666666666667
+</span></span><span style="display:flex;"><span>0,0.26909090909090905,0.5119047619047618,0.23728813559322035,0.3055555555555556
+</span></span><span style="display:flex;"><span>0,0.29818181818181805,0.5833333333333334,0.3898305084745763,0.1527777777777778
+</span></span><span style="display:flex;"><span>0,0.16727272727272732,0.7380952380952381,0.3559322033898305,0.20833333333333334
+</span></span><span style="display:flex;"><span>0,0.26181818181818167,0.892857142857143,0.3050847457627119,0.2638888888888889
+</span></span><span style="display:flex;"><span>0,0.24727272727272717,0.5595238095238096,0.15254237288135594,0.2569444444444444
+</span></span><span style="display:flex;"><span>0,0.25818181818181823,0.773809523809524,0.3898305084745763,0.5486111111111112
+</span></span><span style="display:flex;"><span>0,0.32727272727272727,0.5357142857142859,0.1694915254237288,0.1388888888888889
+</span></span><span style="display:flex;"><span>0,0.23636363636363636,0.9642857142857142,0.3220338983050847,0.3055555555555556
+</span></span></code></pre></div><h3 id="pipeline-components">Pipeline components<a hidden class="anchor" aria-hidden="true" href="#pipeline-components">#</a></h3>
+<p>Our basic pipeline consists of five components: <strong>CsvExampleGen</strong> (ingest data files and converts them to TFX internal format), <strong>Trainer</strong> (trains an ML model), and <strong>Pusher</strong> (deploys the model on a serving infrastructure).</p>
+<h3 id="write-model-training-code">Write model training code<a hidden class="anchor" aria-hidden="true" href="#write-model-training-code">#</a></h3>
+<p>The goal of the model is to classify a penguin based on the four attributes previously mentioned. There are several algorithms to solve this problem, such as KNN, Logistic regression, or SVMs, but we will code a very simple DNN.</p>
+<p>One of the main differences between plain TensorFlow and TFX is that our model training code needs to be stored in a separate file, and some specific functions need to be included so that the Trainer component and the remaining components of the pipeline can properly work.</p>
+<p>The first thing we need to do is to import the necessary libraries and define some variables.</p>
+<p>The Trainer component requires a specific dataset schema, and a pipeline component but because we are working only with 4 features, we can manually define it by creating a feature spec.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> typing <span style="color:#f92672">import</span> List
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> absl <span style="color:#f92672">import</span> logging
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> tensorflow <span style="color:#66d9ef">as</span> tf
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> tensorflow <span style="color:#f92672">import</span> keras
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> tensorflow_transform.tf_metadata <span style="color:#f92672">import</span> schema_utils
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> tfx <span style="color:#f92672">import</span> v1 <span style="color:#66d9ef">as</span> tfx
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> tfx_bsl.public <span style="color:#f92672">import</span> tfxio
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> tensorflow_metadata.proto.v0 <span style="color:#f92672">import</span> schema_pb2
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>_FEATURE_KEYS <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;culmen_length_mm&#39;</span>, <span style="color:#e6db74">&#39;culmen_depth_mm&#39;</span>, <span style="color:#e6db74">&#39;flipper_length_mm&#39;</span>, <span style="color:#e6db74">&#39;body_mass_g&#39;</span>
+</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span>_LABEL_KEY <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;species&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>_TRAIN_BATCH_SIZE <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span>_EVAL_BATCH_SIZE <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>_FEATURE_SPEC <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">**</span>{
+</span></span><span style="display:flex;"><span>        feature: tf<span style="color:#f92672">.</span>io<span style="color:#f92672">.</span>FixedLenFeature(shape<span style="color:#f92672">=</span>[<span style="color:#ae81ff">1</span>], dtype<span style="color:#f92672">=</span>tf<span style="color:#f92672">.</span>float32)
+</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">for</span> feature <span style="color:#f92672">in</span> _FEATURE_KEYS
+</span></span><span style="display:flex;"><span>       },
+</span></span><span style="display:flex;"><span>    _LABEL_KEY: tf<span style="color:#f92672">.</span>io<span style="color:#f92672">.</span>FixedLenFeature(shape<span style="color:#f92672">=</span>[<span style="color:#ae81ff">1</span>], dtype<span style="color:#f92672">=</span>tf<span style="color:#f92672">.</span>int64)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>We also need one function to generate the features and labels for model training. It will be used as the entry point for the Trainer component.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_input_fn</span>(file_pattern: List[str],
+</span></span><span style="display:flex;"><span>              data_accessor: tfx<span style="color:#f92672">.</span>components<span style="color:#f92672">.</span>DataAccessor,
+</span></span><span style="display:flex;"><span>              schema: schema_pb2<span style="color:#f92672">.</span>Schema,
+</span></span><span style="display:flex;"><span>              batch_size: int <span style="color:#f92672">=</span> <span style="color:#ae81ff">200</span>) <span style="color:#f92672">-&gt;</span> tf<span style="color:#f92672">.</span>data<span style="color:#f92672">.</span>Dataset:
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  Args:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    file_pattern: List of paths or patterns of input tfrecord files.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    data_accessor: DataAccessor for converting input to RecordBatch.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    schema: schema of the input data.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    batch_size: representing the number of consecutive elements of returned
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      dataset to combine in a single batch
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  Returns:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    A dataset that contains (features, indices) tuple where features is a
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      dictionary of Tensors, and indices is a single Tensor of label indices.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> data_accessor<span style="color:#f92672">.</span>tf_dataset_factory(
+</span></span><span style="display:flex;"><span>      file_pattern,
+</span></span><span style="display:flex;"><span>      tfxio<span style="color:#f92672">.</span>TensorFlowDatasetOptions(
+</span></span><span style="display:flex;"><span>          batch_size<span style="color:#f92672">=</span>batch_size, label_key<span style="color:#f92672">=</span>_LABEL_KEY),
+</span></span><span style="display:flex;"><span>      schema<span style="color:#f92672">=</span>schema)<span style="color:#f92672">.</span>repeat()
+</span></span></code></pre></div><p>We need another function to create the model using the Keras API. It uses a very simple DNN with two hidden layers, the Adam optimizer, the categorical cross entropy as loss function, and the accuracy as metric.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_build_keras_model</span>() <span style="color:#f92672">-&gt;</span> tf<span style="color:#f92672">.</span>keras<span style="color:#f92672">.</span>Model:
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  inputs <span style="color:#f92672">=</span> [keras<span style="color:#f92672">.</span>layers<span style="color:#f92672">.</span>Input(shape<span style="color:#f92672">=</span>(<span style="color:#ae81ff">1</span>,), name<span style="color:#f92672">=</span>f) <span style="color:#66d9ef">for</span> f <span style="color:#f92672">in</span> _FEATURE_KEYS]
+</span></span><span style="display:flex;"><span>  d <span style="color:#f92672">=</span> keras<span style="color:#f92672">.</span>layers<span style="color:#f92672">.</span>concatenate(inputs)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">2</span>):
+</span></span><span style="display:flex;"><span>    d <span style="color:#f92672">=</span> keras<span style="color:#f92672">.</span>layers<span style="color:#f92672">.</span>Dense(<span style="color:#ae81ff">8</span>, activation<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;relu&#39;</span>)(d)
+</span></span><span style="display:flex;"><span>  outputs <span style="color:#f92672">=</span> keras<span style="color:#f92672">.</span>layers<span style="color:#f92672">.</span>Dense(<span style="color:#ae81ff">3</span>)(d)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  model <span style="color:#f92672">=</span> keras<span style="color:#f92672">.</span>Model(inputs<span style="color:#f92672">=</span>inputs, outputs<span style="color:#f92672">=</span>outputs)
+</span></span><span style="display:flex;"><span>  model<span style="color:#f92672">.</span>compile(
+</span></span><span style="display:flex;"><span>      optimizer<span style="color:#f92672">=</span>keras<span style="color:#f92672">.</span>optimizers<span style="color:#f92672">.</span>Adam(<span style="color:#ae81ff">1e-2</span>),
+</span></span><span style="display:flex;"><span>      loss<span style="color:#f92672">=</span>tf<span style="color:#f92672">.</span>keras<span style="color:#f92672">.</span>losses<span style="color:#f92672">.</span>SparseCategoricalCrossentropy(from_logits<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>),
+</span></span><span style="display:flex;"><span>      metrics<span style="color:#f92672">=</span>[keras<span style="color:#f92672">.</span>metrics<span style="color:#f92672">.</span>SparseCategoricalAccuracy()])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  model<span style="color:#f92672">.</span>summary(print_fn<span style="color:#f92672">=</span>logging<span style="color:#f92672">.</span>info)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> model
+</span></span></code></pre></div><p>And another function that will later be called by the TFX Trainer. It builds on the previous two. Finally, it saves the model.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">run_fn</span>(fn_args: tfx<span style="color:#f92672">.</span>components<span style="color:#f92672">.</span>FnArgs):
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># This schema is usually either an output of SchemaGen or a manually-curated</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># version provided by pipeline author. A schema can also derived from TFT</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># graph if a Transform component is used. In the case when either is missing,</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># `schema_from_feature_spec` could be used to generate schema from very simple</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># feature_spec, but the schema returned would be very primitive.</span>
+</span></span><span style="display:flex;"><span>  schema <span style="color:#f92672">=</span> schema_utils<span style="color:#f92672">.</span>schema_from_feature_spec(_FEATURE_SPEC)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  train_dataset <span style="color:#f92672">=</span> _input_fn(
+</span></span><span style="display:flex;"><span>      fn_args<span style="color:#f92672">.</span>train_files,
+</span></span><span style="display:flex;"><span>      fn_args<span style="color:#f92672">.</span>data_accessor,
+</span></span><span style="display:flex;"><span>      schema,
+</span></span><span style="display:flex;"><span>      batch_size<span style="color:#f92672">=</span>_TRAIN_BATCH_SIZE)
+</span></span><span style="display:flex;"><span>  eval_dataset <span style="color:#f92672">=</span> _input_fn(
+</span></span><span style="display:flex;"><span>      fn_args<span style="color:#f92672">.</span>eval_files,
+</span></span><span style="display:flex;"><span>      fn_args<span style="color:#f92672">.</span>data_accessor,
+</span></span><span style="display:flex;"><span>      schema,
+</span></span><span style="display:flex;"><span>      batch_size<span style="color:#f92672">=</span>_EVAL_BATCH_SIZE)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  model <span style="color:#f92672">=</span> _build_keras_model()
+</span></span><span style="display:flex;"><span>  model<span style="color:#f92672">.</span>fit(
+</span></span><span style="display:flex;"><span>      train_dataset,
+</span></span><span style="display:flex;"><span>      steps_per_epoch<span style="color:#f92672">=</span>fn_args<span style="color:#f92672">.</span>train_steps,
+</span></span><span style="display:flex;"><span>      validation_data<span style="color:#f92672">=</span>eval_dataset,
+</span></span><span style="display:flex;"><span>      validation_steps<span style="color:#f92672">=</span>fn_args<span style="color:#f92672">.</span>eval_steps)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  model<span style="color:#f92672">.</span>save(fn_args<span style="color:#f92672">.</span>serving_model_dir, save_format<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;tf&#39;</span>)
+</span></span></code></pre></div><p>The following code cell puts everything together and writes it to a python file.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>_trainer_module_file <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;penguin_trainer.py&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">%%</span>writefile {_trainer_module_file}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> typing <span style="color:#f92672">import</span> List
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> absl <span style="color:#f92672">import</span> logging
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> tensorflow <span style="color:#66d9ef">as</span> tf
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> tensorflow <span style="color:#f92672">import</span> keras
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> tensorflow_transform.tf_metadata <span style="color:#f92672">import</span> schema_utils
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> tfx <span style="color:#f92672">import</span> v1 <span style="color:#66d9ef">as</span> tfx
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> tfx_bsl.public <span style="color:#f92672">import</span> tfxio
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> tensorflow_metadata.proto.v0 <span style="color:#f92672">import</span> schema_pb2
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>_FEATURE_KEYS <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;culmen_length_mm&#39;</span>, <span style="color:#e6db74">&#39;culmen_depth_mm&#39;</span>, <span style="color:#e6db74">&#39;flipper_length_mm&#39;</span>, <span style="color:#e6db74">&#39;body_mass_g&#39;</span>
+</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span>_LABEL_KEY <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;species&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>_TRAIN_BATCH_SIZE <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span>_EVAL_BATCH_SIZE <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>_FEATURE_SPEC <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">**</span>{
+</span></span><span style="display:flex;"><span>        feature: tf<span style="color:#f92672">.</span>io<span style="color:#f92672">.</span>FixedLenFeature(shape<span style="color:#f92672">=</span>[<span style="color:#ae81ff">1</span>], dtype<span style="color:#f92672">=</span>tf<span style="color:#f92672">.</span>float32)
+</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">for</span> feature <span style="color:#f92672">in</span> _FEATURE_KEYS
+</span></span><span style="display:flex;"><span>       },
+</span></span><span style="display:flex;"><span>    _LABEL_KEY: tf<span style="color:#f92672">.</span>io<span style="color:#f92672">.</span>FixedLenFeature(shape<span style="color:#f92672">=</span>[<span style="color:#ae81ff">1</span>], dtype<span style="color:#f92672">=</span>tf<span style="color:#f92672">.</span>int64)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_input_fn</span>(file_pattern: List[str],
+</span></span><span style="display:flex;"><span>              data_accessor: tfx<span style="color:#f92672">.</span>components<span style="color:#f92672">.</span>DataAccessor,
+</span></span><span style="display:flex;"><span>              schema: schema_pb2<span style="color:#f92672">.</span>Schema,
+</span></span><span style="display:flex;"><span>              batch_size: int <span style="color:#f92672">=</span> <span style="color:#ae81ff">200</span>) <span style="color:#f92672">-&gt;</span> tf<span style="color:#f92672">.</span>data<span style="color:#f92672">.</span>Dataset:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> data_accessor<span style="color:#f92672">.</span>tf_dataset_factory(
+</span></span><span style="display:flex;"><span>      file_pattern,
+</span></span><span style="display:flex;"><span>      tfxio<span style="color:#f92672">.</span>TensorFlowDatasetOptions(
+</span></span><span style="display:flex;"><span>          batch_size<span style="color:#f92672">=</span>batch_size, label_key<span style="color:#f92672">=</span>_LABEL_KEY),
+</span></span><span style="display:flex;"><span>      schema<span style="color:#f92672">=</span>schema)<span style="color:#f92672">.</span>repeat()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_build_keras_model</span>() <span style="color:#f92672">-&gt;</span> tf<span style="color:#f92672">.</span>keras<span style="color:#f92672">.</span>Model:
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  inputs <span style="color:#f92672">=</span> [keras<span style="color:#f92672">.</span>layers<span style="color:#f92672">.</span>Input(shape<span style="color:#f92672">=</span>(<span style="color:#ae81ff">1</span>,), name<span style="color:#f92672">=</span>f) <span style="color:#66d9ef">for</span> f <span style="color:#f92672">in</span> _FEATURE_KEYS]
+</span></span><span style="display:flex;"><span>  d <span style="color:#f92672">=</span> keras<span style="color:#f92672">.</span>layers<span style="color:#f92672">.</span>concatenate(inputs)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">2</span>):
+</span></span><span style="display:flex;"><span>    d <span style="color:#f92672">=</span> keras<span style="color:#f92672">.</span>layers<span style="color:#f92672">.</span>Dense(<span style="color:#ae81ff">8</span>, activation<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;relu&#39;</span>)(d)
+</span></span><span style="display:flex;"><span>  outputs <span style="color:#f92672">=</span> keras<span style="color:#f92672">.</span>layers<span style="color:#f92672">.</span>Dense(<span style="color:#ae81ff">3</span>)(d)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  model <span style="color:#f92672">=</span> keras<span style="color:#f92672">.</span>Model(inputs<span style="color:#f92672">=</span>inputs, outputs<span style="color:#f92672">=</span>outputs)
+</span></span><span style="display:flex;"><span>  model<span style="color:#f92672">.</span>compile(
+</span></span><span style="display:flex;"><span>      optimizer<span style="color:#f92672">=</span>keras<span style="color:#f92672">.</span>optimizers<span style="color:#f92672">.</span>Adam(<span style="color:#ae81ff">1e-2</span>),
+</span></span><span style="display:flex;"><span>      loss<span style="color:#f92672">=</span>tf<span style="color:#f92672">.</span>keras<span style="color:#f92672">.</span>losses<span style="color:#f92672">.</span>SparseCategoricalCrossentropy(from_logits<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>),
+</span></span><span style="display:flex;"><span>      metrics<span style="color:#f92672">=</span>[keras<span style="color:#f92672">.</span>metrics<span style="color:#f92672">.</span>SparseCategoricalAccuracy()])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  model<span style="color:#f92672">.</span>summary(print_fn<span style="color:#f92672">=</span>logging<span style="color:#f92672">.</span>info)
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> model
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">run_fn</span>(fn_args: tfx<span style="color:#f92672">.</span>components<span style="color:#f92672">.</span>FnArgs):
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  train_dataset <span style="color:#f92672">=</span> _input_fn(
+</span></span><span style="display:flex;"><span>      fn_args<span style="color:#f92672">.</span>train_files,
+</span></span><span style="display:flex;"><span>      fn_args<span style="color:#f92672">.</span>data_accessor,
+</span></span><span style="display:flex;"><span>      schema,
+</span></span><span style="display:flex;"><span>      batch_size<span style="color:#f92672">=</span>_TRAIN_BATCH_SIZE)
+</span></span><span style="display:flex;"><span>  eval_dataset <span style="color:#f92672">=</span> _input_fn(
+</span></span><span style="display:flex;"><span>      fn_args<span style="color:#f92672">.</span>eval_files,
+</span></span><span style="display:flex;"><span>      fn_args<span style="color:#f92672">.</span>data_accessor,
+</span></span><span style="display:flex;"><span>      schema,
+</span></span><span style="display:flex;"><span>      batch_size<span style="color:#f92672">=</span>_EVAL_BATCH_SIZE)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  model <span style="color:#f92672">=</span> _build_keras_model()
+</span></span><span style="display:flex;"><span>  model<span style="color:#f92672">.</span>fit(
+</span></span><span style="display:flex;"><span>      train_dataset,
+</span></span><span style="display:flex;"><span>      steps_per_epoch<span style="color:#f92672">=</span>fn_args<span style="color:#f92672">.</span>train_steps,
+</span></span><span style="display:flex;"><span>      validation_data<span style="color:#f92672">=</span>eval_dataset,
+</span></span><span style="display:flex;"><span>      validation_steps<span style="color:#f92672">=</span>fn_args<span style="color:#f92672">.</span>eval_steps)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  model<span style="color:#f92672">.</span>save(fn_args<span style="color:#f92672">.</span>serving_model_dir, save_format<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;tf&#39;</span>)
+</span></span></code></pre></div><h3 id="write-a-pipeline-definition">Write a pipeline definition<a hidden class="anchor" aria-hidden="true" href="#write-a-pipeline-definition">#</a></h3>
+<p>Now we can write a function to create the TFX pipeline. It consists of the three components previously mentioned (CsvExampleGen, Trainer, and Pusher).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_create_pipeline</span>(pipeline_name: str, pipeline_root: str, data_root: str,
+</span></span><span style="display:flex;"><span>                     module_file: str, serving_model_dir: str,
+</span></span><span style="display:flex;"><span>                     metadata_path: str) <span style="color:#f92672">-&gt;</span> tfx<span style="color:#f92672">.</span>dsl<span style="color:#f92672">.</span>Pipeline:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Brings data into the pipeline.</span>
+</span></span><span style="display:flex;"><span>  example_gen <span style="color:#f92672">=</span> tfx<span style="color:#f92672">.</span>components<span style="color:#f92672">.</span>CsvExampleGen(input_base<span style="color:#f92672">=</span>data_root)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Uses user-provided Python function that trains a model.</span>
+</span></span><span style="display:flex;"><span>  trainer <span style="color:#f92672">=</span> tfx<span style="color:#f92672">.</span>components<span style="color:#f92672">.</span>Trainer(
+</span></span><span style="display:flex;"><span>      module_file<span style="color:#f92672">=</span>module_file,
+</span></span><span style="display:flex;"><span>      examples<span style="color:#f92672">=</span>example_gen<span style="color:#f92672">.</span>outputs[<span style="color:#e6db74">&#39;examples&#39;</span>],
+</span></span><span style="display:flex;"><span>      train_args<span style="color:#f92672">=</span>tfx<span style="color:#f92672">.</span>proto<span style="color:#f92672">.</span>TrainArgs(num_steps<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>),
+</span></span><span style="display:flex;"><span>      eval_args<span style="color:#f92672">=</span>tfx<span style="color:#f92672">.</span>proto<span style="color:#f92672">.</span>EvalArgs(num_steps<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Pushes the model to a filesystem destination.</span>
+</span></span><span style="display:flex;"><span>  pusher <span style="color:#f92672">=</span> tfx<span style="color:#f92672">.</span>components<span style="color:#f92672">.</span>Pusher(
+</span></span><span style="display:flex;"><span>      model<span style="color:#f92672">=</span>trainer<span style="color:#f92672">.</span>outputs[<span style="color:#e6db74">&#39;model&#39;</span>],
+</span></span><span style="display:flex;"><span>      push_destination<span style="color:#f92672">=</span>tfx<span style="color:#f92672">.</span>proto<span style="color:#f92672">.</span>PushDestination(
+</span></span><span style="display:flex;"><span>          filesystem<span style="color:#f92672">=</span>tfx<span style="color:#f92672">.</span>proto<span style="color:#f92672">.</span>PushDestination<span style="color:#f92672">.</span>Filesystem(
+</span></span><span style="display:flex;"><span>              base_directory<span style="color:#f92672">=</span>serving_model_dir)))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Following three components will be included in the pipeline.</span>
+</span></span><span style="display:flex;"><span>  components <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>      example_gen,
+</span></span><span style="display:flex;"><span>      trainer,
+</span></span><span style="display:flex;"><span>      pusher,
+</span></span><span style="display:flex;"><span>  ]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> tfx<span style="color:#f92672">.</span>dsl<span style="color:#f92672">.</span>Pipeline(
+</span></span><span style="display:flex;"><span>      pipeline_name<span style="color:#f92672">=</span>pipeline_name,
+</span></span><span style="display:flex;"><span>      pipeline_root<span style="color:#f92672">=</span>pipeline_root,
+</span></span><span style="display:flex;"><span>      metadata_connection_config<span style="color:#f92672">=</span>tfx<span style="color:#f92672">.</span>orchestration<span style="color:#f92672">.</span>metadata
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span>sqlite_metadata_connection_config(metadata_path),
+</span></span><span style="display:flex;"><span>      components<span style="color:#f92672">=</span>components)
+</span></span></code></pre></div><h3 id="run-the-pipeline">Run the pipeline<a hidden class="anchor" aria-hidden="true" href="#run-the-pipeline">#</a></h3>
+<p>Finally, the full pipeline can be run with the following code. We could integrate this TFX pipeline with the Google Cloud AI Platform, which will be covered in another blog post.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>tfx<span style="color:#f92672">.</span>orchestration<span style="color:#f92672">.</span>LocalDagRunner()<span style="color:#f92672">.</span>run(
+</span></span><span style="display:flex;"><span>  _create_pipeline(
+</span></span><span style="display:flex;"><span>      pipeline_name<span style="color:#f92672">=</span>PIPELINE_NAME,
+</span></span><span style="display:flex;"><span>      pipeline_root<span style="color:#f92672">=</span>PIPELINE_ROOT,
+</span></span><span style="display:flex;"><span>      data_root<span style="color:#f92672">=</span>DATA_ROOT,
+</span></span><span style="display:flex;"><span>      module_file<span style="color:#f92672">=</span>_trainer_module_file,
+</span></span><span style="display:flex;"><span>      serving_model_dir<span style="color:#f92672">=</span>SERVING_MODEL_DIR,
+</span></span><span style="display:flex;"><span>      metadata_path<span style="color:#f92672">=</span>METADATA_PATH))
+</span></span></code></pre></div><p>We can check that the model trained is pushed by the Pusher to the directory specified in the beginning of this tutorial.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">!</span>find {SERVING_MODEL_DIR}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>serving_model<span style="color:#f92672">/</span>penguin<span style="color:#f92672">-</span>simple
+</span></span><span style="display:flex;"><span>serving_model<span style="color:#f92672">/</span>penguin<span style="color:#f92672">-</span>simple<span style="color:#f92672">/</span><span style="color:#ae81ff">1676215135</span>
+</span></span><span style="display:flex;"><span>serving_model<span style="color:#f92672">/</span>penguin<span style="color:#f92672">-</span>simple<span style="color:#f92672">/</span><span style="color:#ae81ff">1676215135</span><span style="color:#f92672">/</span>keras_metadata<span style="color:#f92672">.</span>pb
+</span></span><span style="display:flex;"><span>serving_model<span style="color:#f92672">/</span>penguin<span style="color:#f92672">-</span>simple<span style="color:#f92672">/</span><span style="color:#ae81ff">1676215135</span><span style="color:#f92672">/</span>variables
+</span></span><span style="display:flex;"><span>serving_model<span style="color:#f92672">/</span>penguin<span style="color:#f92672">-</span>simple<span style="color:#f92672">/</span><span style="color:#ae81ff">1676215135</span><span style="color:#f92672">/</span>variables<span style="color:#f92672">/</span>variables<span style="color:#f92672">.</span>index
+</span></span><span style="display:flex;"><span>serving_model<span style="color:#f92672">/</span>penguin<span style="color:#f92672">-</span>simple<span style="color:#f92672">/</span><span style="color:#ae81ff">1676215135</span><span style="color:#f92672">/</span>variables<span style="color:#f92672">/</span>variables<span style="color:#f92672">.</span>data<span style="color:#f92672">-</span><span style="color:#ae81ff">00000</span><span style="color:#f92672">-</span>of<span style="color:#f92672">-</span><span style="color:#ae81ff">00001</span>
+</span></span><span style="display:flex;"><span>serving_model<span style="color:#f92672">/</span>penguin<span style="color:#f92672">-</span>simple<span style="color:#f92672">/</span><span style="color:#ae81ff">1676215135</span><span style="color:#f92672">/</span>assets
+</span></span><span style="display:flex;"><span>serving_model<span style="color:#f92672">/</span>penguin<span style="color:#f92672">-</span>simple<span style="color:#f92672">/</span><span style="color:#ae81ff">1676215135</span><span style="color:#f92672">/</span>fingerprint<span style="color:#f92672">.</span>pb
+</span></span><span style="display:flex;"><span>serving_model<span style="color:#f92672">/</span>penguin<span style="color:#f92672">-</span>simple<span style="color:#f92672">/</span><span style="color:#ae81ff">1676215135</span><span style="color:#f92672">/</span>saved_model<span style="color:#f92672">.</span>pb
+</span></span></code></pre></div><h3 id="conclusion-and-future-lines-of-improvement">Conclusion and future lines of improvement<a hidden class="anchor" aria-hidden="true" href="#conclusion-and-future-lines-of-improvement">#</a></h3>
+<p>In this tutorial we have first introduced TFX and took a look at how Spotify it to create personalized recommendations. Then, we created a basic Pipeline with three components: CsvExampleGen, Trainer, and Pusher.</p>
+<p>This pipeline could be improved in several ways. First, more TFX components could be used:</p>
+<ul>
+<li>StatisticsGen to calculate statistics for the dataset.</li>
+<li>SchemaGen to examine the statistics and creates an initial data schema.</li>
+<li>Transform to perform high-quality feature engineering techniques.</li>
+<li>Evaluator component to compare our models with some predefined baseline.</li>
+</ul>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://andresruizc.github.io/andresr/tags/ml/">ML</a></li>
+      <li><a href="https://andresruizc.github.io/andresr/tags/tfx/">TFX</a></li>
+      <li><a href="https://andresruizc.github.io/andresr/tags/pipeline/">Pipeline</a></li>
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2023 <a href="https://andresruizc.github.io/andresr/">Andres Blog</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
