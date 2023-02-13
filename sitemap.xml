@@ -3,7 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://andresruizc.github.io/andresr/</loc>
-    <lastmod>2023-02-12T18:30:00+01:00</lastmod>
+    <lastmod>2023-02-13T22:23:18+01:00</lastmod>
+  </url><url>
+    <loc>https://andresruizc.github.io/andresr/posts/</loc>
+    <lastmod>2023-02-13T22:23:18+01:00</lastmod>
+  </url><url>
+    <loc>https://andresruizc.github.io/andresr/posts/cold_showers/</loc>
+    <lastmod>2023-02-13T22:23:18+01:00</lastmod>
   </url><url>
     <loc>https://andresruizc.github.io/andresr/posts/tfx_tutorial/</loc>
     <lastmod>2023-02-12T18:30:00+01:00</lastmod>
@@ -12,9 +18,6 @@
     <lastmod>2023-02-12T18:30:00+01:00</lastmod>
   </url><url>
     <loc>https://andresruizc.github.io/andresr/tags/pipeline/</loc>
-    <lastmod>2023-02-12T18:30:00+01:00</lastmod>
-  </url><url>
-    <loc>https://andresruizc.github.io/andresr/posts/</loc>
     <lastmod>2023-02-12T18:30:00+01:00</lastmod>
   </url><url>
     <loc>https://andresruizc.github.io/andresr/tags/</loc>
