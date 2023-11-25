@@ -6,7 +6,17 @@
     <description>Recent content in Posts on Andres Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 27 May 2023 16:23:18 +0100</lastBuildDate><atom:link href="https://andresruizc.github.io/andresr/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 18 Nov 2023 16:23:18 +0100</lastBuildDate><atom:link href="https://andresruizc.github.io/andresr/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Create your own future</title>
+      <link>https://andresruizc.github.io/andresr/posts/create_future/</link>
+      <pubDate>Sat, 18 Nov 2023 16:23:18 +0100</pubDate>
+      
+      <guid>https://andresruizc.github.io/andresr/posts/create_future/</guid>
+      <description>SPOILER ALERT: This blogpost is based on the book Lessons In Chemistry.
+When Elizabeth Zoth was ten, she didn&amp;rsquo;t have friends and felt alone. But John, her older brother, was always there. He was kind and protective and taught her to read and write. One day, John committed suicide. She was broken. When Elizabeth decided to study chemistry and become a scientist, she was mocked. It was in the 50s, and women were not considered &amp;ldquo;good&amp;rdquo; enough.</description>
+    </item>
+    
     <item>
       <title>Edith Eger (IV): And now what?</title>
       <link>https://andresruizc.github.io/andresr/posts/edith_4/</link>
@@ -62,15 +72,6 @@ Just a couple of months after their departure, Shackleton&amp;rsquo;s trip, the 
       
       <guid>https://andresruizc.github.io/andresr/posts/cold_showers/</guid>
       <description>Do difficult things every day. Step out of your comfort zone daily because that will callous your mind. Sounds good, so I researched cold showers and discovered they have been shown to have several benefits, including reduced inflammation, reduced stress levels, boosted energy, increased immunity, and enhanced focus, among others. And because I considered them as self-imposed torture, I decided to take cold showers every morning. Then, everything went differently than planned.</description>
-    </item>
-    
-    <item>
-      <title>Retrieval stage recommender systems with TensorFlow</title>
-      <link>https://andresruizc.github.io/andresr/posts/retrieval_tf/</link>
-      <pubDate>Sat, 11 Feb 2023 22:23:18 +0100</pubDate>
-      
-      <guid>https://andresruizc.github.io/andresr/posts/retrieval_tf/</guid>
-      <description>Introduction to recommender systems Some of the most exciting features that big companies like Amazon, Netflix, and Spotify offer rely on recommender systems. Much useful information can be collected whenever users navigate the Amazon website, listen to a playlist on Spotify, or scroll through the Netflix catalog. This data includes user behavior, item attributes, or interactions between users and is what machine learning recommender systems use to make personalized recommendations.</description>
     </item>
     
     <item>
