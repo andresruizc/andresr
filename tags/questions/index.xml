@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Questions on Andres Blog</title>
+    <link>https://andresruizc.github.io/andresr/tags/questions/</link>
+    <description>Recent content in Questions on Andres Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 01 Jan 2024 06:00:00 +0100</lastBuildDate><atom:link href="https://andresruizc.github.io/andresr/tags/questions/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ask good questions</title>
+      <link>https://andresruizc.github.io/andresr/posts/questions/</link>
+      <pubDate>Mon, 01 Jan 2024 06:00:00 +0100</pubDate>
+      
+      <guid>https://andresruizc.github.io/andresr/posts/questions/</guid>
+      <description>In the science fiction saga The Hitchhiker&amp;rsquo;s Guide to the Galaxy, a group of space explorers search for the answer to the meaning of life by creating a supercomputer. After seven million years of work, the supercomputer comes up with the answer: 42.
+To everyone&amp;rsquo;s astonishment, the computer replies: &amp;ldquo;That&amp;rsquo;s definitely the answer. I think the problem, to be honest, is that you didn&amp;rsquo;t really know what the question was&amp;rdquo;.</description>
+    </item>
+    
+  </channel>
+</rss>
